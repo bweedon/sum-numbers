@@ -2,32 +2,32 @@ package com.teladoc.sumnumbers.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-@Service
 public class MathService {
     private static Logger Logger = LoggerFactory.getLogger(MathService.class);
 
-    public String sum(String num1, String num2) {
+    public static String sum(String num1, String num2) {
         return sum(num1, num2, Locale.ENGLISH);
     }
-    public String sum(String num1, String num2, Locale locale) {
-        Logger.trace("Entering, Params - num1: %s, num2: %s, locale: %s", num1, num2, locale);
+    public static String sum(String num1, String num2, Locale locale) {
+        Logger.trace(String.format("Entering, Params - num1: %s, num2: %s, locale: %s", num1, num2, locale));
         BigDecimal num1BD =  convertStringToNumber(num1);
         BigDecimal num2BD = convertStringToNumber(num2);
+        // Big Decimal is immutable, assign to a new variable
         BigDecimal sum = num1BD.add(num2BD);
+        // Format the number based on the locale passed in.
         NumberFormat formatter = NumberFormat.getInstance(locale);
-        Logger.debug("Formatting sum: %d");
+        Logger.debug(String.format("Formatting sum: %f", sum));
         String formattedNumber = formatter.format(sum);
         Logger.trace(String.format("Leaving, returning %s", formattedNumber));
         return formattedNumber;
     }
 
-    private BigDecimal convertStringToNumber(String num) {
+    private static BigDecimal convertStringToNumber(String num) {
         Logger.trace(String.format("Entering, Params - num: %s", num));
         try {
             BigDecimal numBD = new BigDecimal(num);
