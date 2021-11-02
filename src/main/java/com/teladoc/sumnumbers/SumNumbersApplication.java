@@ -1,5 +1,6 @@
 package com.teladoc.sumnumbers;
 
+import com.teladoc.sumnumbers.service.BasicMathService;
 import com.teladoc.sumnumbers.service.MathService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +30,9 @@ public class SumNumbersApplication implements CommandLineRunner {
 			String num2 = in.nextLine();
 			logger.debug(String.format("Entered %s as first number and %s as the second number", num1, num2));
 			String sum = MathService.sum(num1, num2);
+			String sumByHand = BasicMathService.sum(num1, num2);
 			System.out.printf("The sum is %s\n", sum);
+			System.out.printf("The sum by hand is %s\n", sumByHand);
 		}
 	}
 
